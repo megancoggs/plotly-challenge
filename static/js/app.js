@@ -6,11 +6,13 @@ function buildPlots() {
     // Fetch the JSON data
     d3.json(buttonData).then(function(data) {
 
+        // --------------------------- RETRIEVE/STORE DATA ---------------------------
+
         // Log the data to the console
         console.log(data)
 
         // Store first item in data array
-        var samples = data.samples[0]
+        var samples = data.samples[0];
             
         // Grab values from the dataset to build the plots
         var sample_values = samples.sample_values;
@@ -31,6 +33,26 @@ function buildPlots() {
         console.log(`OTU Labels: ${top_otu_labels}`);
         console.log(`OTU IDs: ${top_otu_ids}`);
         console.log(`OTU ID Strings: ${top_otu_id_strings}`);
+
+        // --------------------------- META DATA TABLE ---------------------------
+        var metadata = data.metadata;
+
+        subject_id = "943";
+
+        // Select the metadata panel and reset contents
+        metadata_panel = d3.select("#sample-metadata");
+
+        // Filter the data to grab metadata for only the selected subject id
+        var subject_metadata = metadata.filter(subject => subject.id == subject_id)[0];
+        console.log(subject_metadata);
+
+        // Get the metadata entries for the selected subject
+        Object.entries(subject_metadata).forEach(([key, value]) => {
+            // Log the entry to the console
+            console.log(`Key: ${key} and Value ${value}`);
+            // Append the entry to the metadata penel
+            metadata_panel.append("h5").text(`${key}: ${value}`);
+            });
 
         // --------------------------- BAR CHART ---------------------------
 
