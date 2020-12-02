@@ -93,10 +93,12 @@ function buildPlots(select_id) {
 
         // --------------------------- BUBBLE CHART ---------------------------
 
+        // Get the data (all samples)
         var sample_values = data.samples[0].sample_values;
         var otu_labels = data.samples[0].otu_labels;
         var otu_ids = data.samples[0].otu_ids;
 
+        // Create the trace
         var trace2 = {
             x: otu_ids,
             y: sample_values,
@@ -118,7 +120,6 @@ function buildPlots(select_id) {
                     text: "OTU ID"
                 }
             }
-
         };
 
         Plotly.newPlot("bubble", plot_data2, layout);
@@ -134,6 +135,5 @@ function optionChanged(select_id) {
     // Plot the charts with the new selected ID
     buildPlots(select_id);
 }
-
 
 buildPage();
